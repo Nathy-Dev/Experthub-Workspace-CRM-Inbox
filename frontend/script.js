@@ -9,11 +9,12 @@ let lastSeenTimestamp = new Date(0).toISOString();
 const lastMessageIdBySession = {};
 const conversationElements = new Map();
 
+const API_BASE = 'https://experthub-workspace-crm-inbox.onrender.com/';
 const API = {
-    conversations: 'http://localhost:3000/api/conversations',
-    messages: (sessionId) => `http://localhost:3000/api/conversations/${sessionId}/messages`,
-    send: 'http://localhost:3000/api/messages',
-    longPoll: 'http://localhost:3000/api/long-poll',
+    conversations: `${API_BASE}/api/conversations`,
+    messages: (sessionId) => `${API_BASE}/api/conversations/${sessionId}/messages`,
+    send: `${API_BASE}/api/messages`,
+    longPoll: `${API_BASE}/api/long-poll`,
 };
 
 function formatTime(iso) {
