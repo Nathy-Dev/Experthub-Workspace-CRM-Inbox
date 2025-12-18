@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-dot" aria-hidden="true"></span>
+          Experthub Workspace CRM Inbox
+        </div>
+      </div>
+    </header>
+
+    <div class="app">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">Conversations</div>
+        <div class="conversation-list" id="conversationList"></div>
+      </aside>
+
+      <!-- Chat Area -->
+      <main class="chat">
+        <div class="chat-header" id="chatHeader">Select a conversation</div>
+        <div class="messages" id="messages">
+          <div class="empty">No conversation selected</div>
+        </div>
+        <div class="chat-input">
+          <input
+            type="text"
+            id="messageInput"
+            placeholder="Type a message"
+            disabled
+          />
+          <button id="sendBtn" disabled>Send</button>
+        </div>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
