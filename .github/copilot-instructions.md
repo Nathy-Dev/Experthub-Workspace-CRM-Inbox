@@ -1,6 +1,6 @@
 ## Project snapshot
 
-- Small single-repo web app with a static frontend in `frontend/` and a minimal Express backend in `backend/`.
+- Small single-repo web app with a static frontend in the project root (`index.html`, `script.js`, `styles.css`) and a minimal Express backend in `backend/`.
 - Backend persists chat-like events into a Postgres table named `experthub_workspace_chat_history` and exposes three HTTP endpoints used by the UI.
 
 ## Where to look first (quick map)
@@ -9,7 +9,7 @@
   - GET `/api/conversations` — returns most-recent row per `session_id`.
   - GET `/api/conversations/:sessionId/messages` — returns ordered messages for a session.
   - POST `/api/messages` — inserts an AI reply (expects `session_id` and `message` in request body).
-- Frontend: `frontend/index.html`, `frontend/script.js`, `frontend/styles.css` — tiny static UI that fetches from `http://localhost:3000`.
+- Frontend: `index.html`, `script.js`, `styles.css` — tiny static UI that fetches from `http://localhost:3000`.
 - DB: table referenced is `experthub_workspace_chat_history`; messages are stored as JSON in the `message` column.
 
 ## Big-picture architecture / data flow
@@ -18,7 +18,7 @@
 2. Backend queries Postgres (Supabase-like connection string) against `experthub_workspace_chat_history`.
 3. Backend normalizes rows (message JSON has `type` and `content`) before returning to the client.
 
-Why this matters for edits: most visible changes are either UI-only (in `frontend/`) or data-shape/DB-related (in `backend/`). The project assumes the DB stores messages as JSON blobs.
+Why this matters for edits: most visible changes are either UI-only (in the project root: `index.html`, `script.js`, `styles.css`) or data-shape/DB-related (in `backend/`). The project assumes the DB stores messages as JSON blobs.
 
 ## Project-specific conventions & notable patterns
 
@@ -35,11 +35,11 @@ Why this matters for edits: most visible changes are either UI-only (in `fronten
 
   (There is no `start` script in `package.json` — run `node server.js` directly or add an npm script.)
 
-- Frontend: open `frontend/index.html` in a browser or serve the folder with a static server (e.g. `npx serve frontend` or `python -m http.server 5500`), then visit the file in your browser.
+- Frontend: open `index.html` in a browser or serve the project root with a static server (e.g. `npx serve .` or `python -m http.server 5500`), then visit the file in your browser.
 
 ## Practical editing notes / common fixes
 
-- To enable sending from the UI: `frontend/script.js` contains a commented-out payload that uses `conversation_id` and `API.send` (which is undefined). Change the payload to use `session_id` and POST to `/api/messages` (backend expects `{ session_id, message }`).
+- To enable sending from the UI: `script.js` contains a commented-out payload that uses `conversation_id` and `API.send` (which is undefined). Change the payload to use `session_id` and POST to `/api/messages` (backend expects `{ session_id, message }`).
 
 - DB credentials are hardcoded in `backend/server.js` (Supabase-like host and credentials). Do not commit real secrets; prefer moving them to environment variables (e.g., `process.env.DB_USER`, etc.).
 
@@ -53,13 +53,13 @@ Why this matters for edits: most visible changes are either UI-only (in `fronten
 ## Files you will edit most often
 
 - `backend/server.js` — DB connection, query text, normalization and API behavior.
-- `frontend/script.js` — UI fetches and rendering; enable/adjust send behavior here.
+- `script.js` — UI fetches and rendering; enable/adjust send behavior here.
 
 ## Safety & review notes for an AI agent
 
 - The repo contains hardcoded DB credentials in `backend/server.js`. Do not expose these values outside the repository. When suggesting changes, prefer recommending moving credentials to environment variables.
 
-- Keep changes minimal and test locally: run `node backend/server.js` and load `frontend/index.html` (or a local static server) to verify behavior.
+- Keep changes minimal and test locally: run `node backend/server.js` and load `index.html` (or a local static server) to verify behavior.
 
 ## Example edits (copy-paste friendly)
 
