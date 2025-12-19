@@ -68,6 +68,13 @@ body {
     display: inline-block;
 }
 
+.brand-logo {
+    width: 40px;
+    border-radius: 50%;
+    height: auto;
+    display: inline-block;
+}
+
 .app {
     display: flex;
     height: calc(100vh - var(--topbar-height));
