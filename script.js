@@ -191,7 +191,7 @@ loadConversations();
 
 // WebSocket client for real-time updates (replaces polling)
 try {
-    const ws = new WebSocket(`ws://${location.hostname}:3000`);
+    const ws = new WebSocket(`wss://experthub-workspace-crm-inbox.onrender.com`);
 
     ws.addEventListener('open', () => {
         console.log('WebSocket connected');
