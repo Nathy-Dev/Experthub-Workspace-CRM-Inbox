@@ -10,7 +10,10 @@ const WebSocket = require('ws');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: '*', // for now (you can restrict later)
+  methods: ['GET', 'POST']
+}));
 app.use(express.json());
 
 // ================================
@@ -336,7 +339,7 @@ app.get('/api/long-poll', async (req, res) => {
 // ================================
 // Server start
 // ================================
-const PORT = parseInt(process.env.PORT || '3000', 10);
+const PORT = parseInt(process.env.PORT || 3000);
 const server = http.createServer(app);
 
 // setup WebSocket server
@@ -384,6 +387,6 @@ async function pollNewMessages() {
 setInterval(pollNewMessages, 1500);
 
 server.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
 
